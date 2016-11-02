@@ -1,0 +1,5 @@
+{
+    "require": {
+        "rcrowe/twigbridge": "^0.9.3"
+    }
+}
