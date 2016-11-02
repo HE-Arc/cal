@@ -1,3 +1,4 @@
+# Laravel specific ignores
 /node_modules
 /public/storage
 /storage/*.key
@@ -6,7 +7,7 @@
 Homestead.json
 Homestead.yaml
 .env
-
+database.php
 
 
 # Created by https://www.gitignore.io/api/phpstorm
