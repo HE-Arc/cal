@@ -39,16 +39,12 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
+    /**  Get a validator for an incoming registration request.
+     **/
+
+    protected function validator(array $data){
+        return Validator::make($data,[
+            'alias' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
@@ -63,7 +59,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'alias' => $data['alias'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
