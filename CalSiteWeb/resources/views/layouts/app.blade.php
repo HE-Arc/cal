@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,6 +77,13 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    <li>
+                                        <a href="{{ url('/editProfil') }}">
+                                           Edit profil
+                                        </a>
+                                    </li>
+
+
                                 </ul>
                             </li>
                         @endif
