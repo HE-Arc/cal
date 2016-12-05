@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 /*
@@ -25,4 +25,12 @@ Route::get('/test/{param?}', function ($param = 'cyril') {
 });*/
 
 Route::get('/test/{param?}', 'MyController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('/editProfil', 'editProfilController@index');
+
+Route::get('/calendar', 'CalendarController@index');
 

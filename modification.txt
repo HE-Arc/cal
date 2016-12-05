@@ -1,0 +1,4 @@
+1:	rajout d'une barre latéral pour le défilement des mois dans le 
+	calendrier
+2. 	possibilité d'ajouter les calendrier et ainsi modifier les couleurs
+	pour différencier dans le feed.
