@@ -20,13 +20,13 @@
 	"jquery": "~2.2.0",
 	"materialize-css": "~0.97.0"
   },
-  "browser"{
+  "browser":{
   	"materialize": "./node_modules/materialize-css/dist/js/materialize.js"
   },
   "browserify": {
   	"transform": ["browserify-shim"]
   },
-  "browserify-shim"{
+  "browserify-shim":{
   	"materialize": "materialize"
   }
 }
