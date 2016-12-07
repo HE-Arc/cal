@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+    public $timestamps = false;
+
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
     protected $fillable = [
@@ -16,11 +18,11 @@ class Task extends Model
         'priority',
         'location',
         'attachment_url',
-        'calendar_id',
+        'agenda_id',
     ];
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
-    public function calendar() {
-        return $this->belongsTo('Calendar');
+    public function agenda() {
+        return $this->belongsTo('App\Agenda');
     }
 }

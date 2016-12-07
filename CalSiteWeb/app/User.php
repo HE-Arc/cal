@@ -28,8 +28,8 @@ class User extends Authenticatable
     ];
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
-    public function calendars(){
-        return $this->belongsToMany('Calendar')
+    public function agendas(){
+        return $this->belongsToMany('App\Agenda')
         ->withPivot('add_task',
         'edit_task',
         'delete_task',

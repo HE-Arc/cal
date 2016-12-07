@@ -4,8 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Calendar extends Model
+class Agenda extends Model
 {
+    public $timestamps = false;
+
     // MASS ASSIGNMENT -------------------------------------------------------
     // define which attributes are mass assignable (for security)
     protected $fillable = [
@@ -21,7 +23,7 @@ class Calendar extends Model
     }
 
     public function users(){
-        return $this->belongsToMany('User')
+        return $this->belongsToMany('App\User')
         ->withPivot('add_task',
         'edit_task',
         'delete_task',
