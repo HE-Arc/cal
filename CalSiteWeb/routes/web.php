@@ -32,5 +32,4 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('/editProfil', 'editProfilController@index');
 
-Route::get('/calendar', 'CalendarController@index');
-
+Route::get('/calendar/{param?}', 'CalendarController@index');

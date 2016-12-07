@@ -6,11 +6,10 @@ use App\Agenda;
 
 class CalendarController extends Controller {
 
-    public function index()
+    public function index($param)
     {
-        //TODO get agenda id from somewere
-        $agenda_id = 7;
-        $agenda = Agenda::where('id', $agenda_id)->first();
+        //TODO check if user can see this agenda
+        $agenda = Agenda::where('id', $param)->first();
         $tasks = $agenda->tasks()->get();
 
         foreach ($tasks as $task) {
