@@ -26,4 +26,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // DEFINE RELATIONSHIPS --------------------------------------------------
+    public function calendars(){
+        return $this->belongsToMany('Calendar')
+        ->withPivot('add_task',
+        'edit_task',
+        'delete_task',
+        'add_member',
+        'remove_member',
+        'edit_calendar',
+        'delete_calendar');
+
+    }
 }
