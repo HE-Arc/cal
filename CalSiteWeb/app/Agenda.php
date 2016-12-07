@@ -19,7 +19,7 @@ class Agenda extends Model
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
     public function tasks(){
-        return $this->hasMany('Task');
+        return $this->hasMany('App\Task');
     }
 
     public function users(){
