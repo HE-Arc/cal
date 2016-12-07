@@ -8,7 +8,8 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "rcrowe/twigbridge": "^0.9.3",
-        "schnittstabil/csrf-twig-helpers": "^1.1"
+        "schnittstabil/csrf-twig-helpers": "^1.1",
+        "maddhatter/laravel-fullcalendar": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
