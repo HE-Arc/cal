@@ -39,4 +39,11 @@ class User extends Authenticatable
         'delete_calendar');
 
     }
+
+    /**
+     *
+     */
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = \Hash::make($password);
+    }
 }
