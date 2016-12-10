@@ -35,3 +35,7 @@ Route::get('/editProfil', 'editProfilController@index');
 Route::post('/editProfil', 'editProfilController@edit');
 
 Route::get('/calendar/{param?}', 'CalendarController@index');
+
+Route::get('/createCalendar', 'createCalendarController@index');
+
+Route::post('/createCalendar', 'createCalendarController@create');

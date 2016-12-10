@@ -33,9 +33,11 @@ class HomeController extends Controller
 
         $listAgendas = [];
 
+        $calendar = \Calendar::addEvents([]);
+
         foreach ($agendas as $agenda) {
             $listAgendas[$agenda->id] = $agenda->title;
-            
+
             $tasks = $agenda->tasks()->get();
             foreach ($tasks as $task) {
                 $event = \Calendar::event(
@@ -63,6 +65,7 @@ class HomeController extends Controller
             'defaultView'   =>  'listMonth',  //List layout
             'timeFormat'    =>  'h:mm' // uppercase H for 24-hour clock
         ]);
+
 
         return view('home', ['calendar' => $calendar, 'listAgendas' => $listAgendas]);
     }

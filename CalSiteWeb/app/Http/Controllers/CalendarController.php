@@ -12,6 +12,9 @@ class CalendarController extends Controller {
         $agenda = Agenda::where('id', $param)->first();
         $tasks = $agenda->tasks()->get();
 
+        $calendar = \Calendar::addEvents([]);
+
+        
         foreach ($tasks as $task) {
             $event = \Calendar::event(
                 $task->title,           //title

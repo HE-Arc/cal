@@ -11,6 +11,7 @@
                     @foreach ($listAgendas as $key => $agenda)
                         <li class="list-group-item"><a href={{ url('/calendar/'.$key) }}>{{ $agenda }} </a></li>
                     @endforeach
+                    <li class="list-group-item"><a href={{ url('/createCalendar') }}>New agenda</a></li>
                 </ul>
             </div>
         </div>
@@ -19,7 +20,7 @@
                 <div class="panel-heading">Feeds</div>
 
                 <div class="panel-body">
-                    {!! $calendar->calendar() !!}
+                    {!! !empty($calendar) ? $calendar->calendar() : '' !!}
                 </div>
             </div>
         </div>
@@ -39,7 +40,7 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src='http://fullcalendar.io/js/fullcalendar-3.1.0/fullcalendar.min.js'></script>
-{!! $calendar->script() !!}
+{!! !empty($calendar) ? $calendar->script() : '' !!}
 @endsection
 
 @section('styles')
