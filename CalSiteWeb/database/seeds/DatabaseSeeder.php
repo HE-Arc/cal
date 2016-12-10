@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
         $userTest = User::create(array(
             'alias'         =>  'Test',
             'email'         =>  'test@test.com',
-            'password'      =>  Hash::make('1234'),
+            'password'      =>  '123456',
         ));
         $this->command->info('Users seeded !');
 
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             'edit_calendar'     => true,
             'delete_calendar'   => true,
         ]);
-        $userTest->agendas()->attach($calendar2->id, [
+        $calendar2->users()->attach($userTest->id, [
             'add_task'          => false,
             'edit_task'         => false,
             'delete_task'       => false,
