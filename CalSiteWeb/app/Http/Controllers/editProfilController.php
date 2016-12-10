@@ -24,44 +24,21 @@ class editProfilController extends Controller
     {
         $user = Auth::user();
 
-        //Alias validation
-        $aliasErrors = [];
-        if($request->has('alias')){
-            $alias = $request->alias;
-            //Minimum size 4
-            if(strlen($alias) < 4){
-                $aliasErrors['lengthError'] = "Alias must be atleast 4 character long";
-            }
-            //contains only alphanumerical + _ chars
-            if(!preg_match('/^[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)*$/',$alias)){
-                $aliasErrors['charError'] = "Alias must contains only alphanumerical characters and underscores";
-            }
+        // create the validation rules ------------------------
+        $rules = array(
+            'alias' => 'required|max:255|min:3',
+            'password' => 'min:6|confirmed',
+        );
 
-            if(empty($aliasErrors)){
-                $user->alias = $alias;
-            }
-        }
-        //Password validation
-        $passwordErrors = [];
-        if($request->has('password') && $request->has('password_confirmation')){
-            $password = $request->password;
-            $password_confirmation = $request->password_confirmation;
+        $this->validate($request, $rules);
 
-            //Check confirmation
-            if($password != $password_confirmation){
-                $passwordErrors['confirmationError'] = "Password and confirmation don't match";
-            }
+        $user->alias = $request->alias;
 
-            //Check size
-            if(strlen($password) < 6){
-                $passwordErrors['lengthError'] = "Password must be atleast 6 character long";
-            }
+        if($request->has('password'))
+            $user->password = $request->password;
 
-            if(empty($passwordErrors)){
-                $user->password = $password;
-            }
-        }
         $user->save();
-        return view('editProfil', ['user' => $user, 'aliasErrors' => $aliasErrors, 'passwordErrors' => $passwordErrors]);
+        return view('editProfil', ['user' => $user]);
+
     }
 }
