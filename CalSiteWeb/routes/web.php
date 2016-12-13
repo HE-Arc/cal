@@ -15,27 +15,13 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-/*
-Route::get('/test', function () {
-    return 'pageTest';
-});
-
-Route::get('/test/{param?}', function ($param = 'cyril') {
-    return view('customView')->with('param', $param);
-});*/
-
-Route::get('/test/{param?}', 'MyController@index');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::get('/editProfil', 'editProfilController@index');
-
 Route::post('/editProfil', 'editProfilController@edit');
 
-Route::get('/calendar/{param?}', 'CalendarController@index');
+Route::resource('/calendar', 'AgendaController');
 
-Route::get('/createCalendar', 'createCalendarController@index');
-
-Route::post('/createCalendar', 'createCalendarController@create');
+Route::resource('/calendar/{calendarId}/tasks', 'TaskController', ['except' => ['index', 'show']]);

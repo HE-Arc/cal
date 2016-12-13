@@ -11,7 +11,7 @@
                     @foreach ($listAgendas as $key => $agenda)
                         <li class="list-group-item"><a href={{ url('/calendar/'.$key) }}>{{ $agenda }} </a></li>
                     @endforeach
-                    <li class="list-group-item"><a href={{ url('/createCalendar') }}>New agenda</a></li>
+                    <li class="list-group-item"><a href={{ url('/calendar/create') }}>New agenda</a></li>
                 </ul>
             </div>
         </div>

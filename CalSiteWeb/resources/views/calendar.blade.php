@@ -6,7 +6,10 @@
         <div class="col-md-12">
             <div class="panel panel-warning">
                 <div class="panel-body">
-                    <div class="pan"> voici votre calendrier </div>
+                    <div class="pan" style="display: flex; justify-content: space-between;">
+                        <a href="{{ url('/calendar/'.$calendarId.'/tasks/create') }}"><button>create Task</button></a>
+                        <a href="{{ url('/calendar/'.$calendarId.'/edit') }}"><button>edit Calendar</button></a>
+                    </div>
                 </div>
                 <!-- Crée un div automatiquement qui contient le calendrier (Proviens de l'helper)-->
                 {!! $calendar->calendar() !!}
