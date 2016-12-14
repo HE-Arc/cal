@@ -53,9 +53,9 @@ class AgendaController extends Controller
         //Create the agenda
         $agenda = new Agenda;
         $agenda->title = $request->title;
-        $agenda->priority_high_color = substr($request->priority_high_color, 1);    //substr to remove the # (#FFFFFF)
-        $agenda->priority_medium_color = substr($request->priority_medium_color, 1);
-        $agenda->priority_low_color = substr($request->priority_low_color, 1);
+        $agenda->priority_high_color = $request->priority_high_color;
+        $agenda->priority_medium_color = $request->priority_medium_color;
+        $agenda->priority_low_color = $request->priority_low_color;
 
         $agenda->save();
 
@@ -89,23 +89,6 @@ class AgendaController extends Controller
         $calendar = \Calendar::addEvents([]);
 
         foreach ($tasks as $task) {
-            switch ($task->priority) {
-                case '1':
-                    $color = "#".$agenda->priority_low_color;
-                    break;
-                case '2':
-                    $color = "#".$agenda->priority_medium_color;
-                    break;
-                case '3':
-                    $color = "#".$agenda->priority_high_color;
-                    break;
-
-                default:
-                    $color = "#000000";
-                    break;
-            }
-
-
             $event = \Calendar::event(
                 $task->title,           //title
                 false,                  //is full day event ?
@@ -115,7 +98,7 @@ class AgendaController extends Controller
                 [
                     //any other full-calendar supported parameters
                     'url' => '/calendar/'.$calendarId.'/tasks/'.$task->id.'/edit',
-                    'color' => $color
+                    'color' => $task->color,
                 ]
             );
 

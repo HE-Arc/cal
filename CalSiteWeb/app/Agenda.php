@@ -33,4 +33,17 @@ class Agenda extends Model
         'delete_calendar');
 
     }
+
+    // Accessors and mutators -----------------------------------------------
+    public function setPriorityLowColorAttribute($value){
+        $this->attributes['priority_low_color'] = substr($value, 1);
+    }
+
+    public function setPriorityMediumColorAttribute($value){
+        $this->attributes['priority_medium_color'] = substr($value, 1);
+    }
+
+    public function setPriorityHighColorAttribute($value){
+        $this->attributes['priority_high_color'] = substr($value, 1);
+    }
 }

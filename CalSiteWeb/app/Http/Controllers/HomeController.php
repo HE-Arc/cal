@@ -40,22 +40,6 @@ class HomeController extends Controller
 
             $tasks = $agenda->tasks()->get();
             foreach ($tasks as $task) {
-                switch ($task->priority) {
-                    case '1':
-                        $color = "#".$agenda->priority_low_color;
-                        break;
-                    case '2':
-                        $color = "#".$agenda->priority_medium_color;
-                        break;
-                    case '3':
-                        $color = "#".$agenda->priority_high_color;
-                        break;
-
-                    default:
-                        $color = "#000000";
-                        break;
-                }
-
                 $event = \Calendar::event(
                     $task->title,           //title
                     false,                  //is full day event ?
@@ -65,7 +49,7 @@ class HomeController extends Controller
                     [
                         //any other full-calendar supported parameters
                         'url' => '/calendar/'.$agenda->id.'/tasks/'.$task->id.'/edit',
-                        'color' => $color
+                        'color' => $task->color,
                     ]
                 );
 

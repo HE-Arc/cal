@@ -20,7 +20,7 @@
                 <div class="panel-heading">Feeds</div>
 
                 <div class="panel-body">
-                    {!! !empty($calendar) ? $calendar->calendar() : '' !!}
+                    {!! $calendar->calendar() !!}
                 </div>
             </div>
         </div>
