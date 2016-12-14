@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Task;
 use App\Agenda;
 use App\User;
+use Calendar;
 
 class HomeController extends Controller
 {
@@ -33,14 +34,14 @@ class HomeController extends Controller
 
         $listAgendas = [];
 
-        $calendar = \Calendar::addEvents([]);
+        $calendar = Calendar::addEvents([]);
 
         foreach ($agendas as $agenda) {
             $listAgendas[$agenda->id] = $agenda->title;
 
             $tasks = $agenda->tasks()->get();
             foreach ($tasks as $task) {
-                $event = \Calendar::event(
+                $event = Calendar::event(
                     $task->title,           //title
                     false,                  //is full day event ?
                     $task->time_start,      //start time
@@ -53,7 +54,7 @@ class HomeController extends Controller
                     ]
                 );
 
-                $calendar = \Calendar::addEvent($event);
+                $calendar = Calendar::addEvent($event);
             }
         }
 

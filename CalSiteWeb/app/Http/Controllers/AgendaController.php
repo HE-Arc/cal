@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Agenda;
 use App\Task;
+use Calendar;
 
 class AgendaController extends Controller
 {
@@ -86,10 +87,10 @@ class AgendaController extends Controller
         $agenda = Agenda::where('id', $calendarId)->first();
         $tasks = $agenda->tasks()->get();
 
-        $calendar = \Calendar::addEvents([]);
+        $calendar = Calendar::addEvents([]);
 
         foreach ($tasks as $task) {
-            $event = \Calendar::event(
+            $event = Calendar::event(
                 $task->title,           //title
                 false,                  //is full day event ?
                 $task->time_start,      //start time
@@ -102,7 +103,7 @@ class AgendaController extends Controller
                 ]
             );
 
-            $calendar = \Calendar::addEvent($event);
+            $calendar = Calendar::addEvent($event);
         }
         $calendar->setOptions([
             'timeFormat'  => 'H:mm' // uppercase H for 24-hour clock
