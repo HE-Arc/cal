@@ -49,7 +49,7 @@ class HomeController extends Controller
                     $task->id,              //optionnal event id
                     [
                         //any other full-calendar supported parameters
-                        'url' => '/calendar/'.$agenda->id.'/tasks/'.$task->id.'/edit',
+                        'url' => Route('tasks.edit', ['calendarId' => $agenda->id, 'taskId' => $task->id]),
                         'color' => $task->color,
                     ]
                 );

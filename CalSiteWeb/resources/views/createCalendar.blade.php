@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create your Agenda</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/calendar') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('calendar.store') }}">
                         {{ csrf_field() }}
 
                         <!-- Title -->

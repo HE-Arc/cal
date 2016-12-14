@@ -7,8 +7,8 @@
             <div class="panel panel-warning">
                 <div class="panel-body">
                     <div class="pan" style="display: flex; justify-content: space-between;">
-                        <a href="{{ url('/calendar/'.$calendarId.'/tasks/create') }}"><button>create Task</button></a>
-                        <a href="{{ url('/calendar/'.$calendarId.'/edit') }}"><button>edit Calendar</button></a>
+                        <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}"><button>create Task</button></a>
+                        <a href="{{ route('calendar.edit' , ['calendarId' => $calendarId])}}"><button>edit Calendar</button></a>
                     </div>
                 </div>
                 <!-- Crée un div automatiquement qui contient le calendrier (Proviens de l'helper)-->

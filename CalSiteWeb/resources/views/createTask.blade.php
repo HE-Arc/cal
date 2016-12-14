@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Create a new task</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/calendar/'.$calendarId.'/tasks') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ route('tasks.store', ['calendarId' => $calendarId]) }}">
                         {{ csrf_field() }}
 
                         <!-- Title -->
@@ -82,7 +82,7 @@
                                 @endif
                             </div>
                         </div>
-                        
+
                         <!-- Description -->
                         <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                             <label for="description" class="col-md-4 control-label">Description</label>

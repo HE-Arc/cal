@@ -73,7 +73,7 @@ class AgendaController extends Controller
 
         $agenda->save();
 
-        return redirect('home');
+        return redirect()->route('calendar.show', ['calendarId' => $agenda->id]);
     }
 
     /**
@@ -98,7 +98,7 @@ class AgendaController extends Controller
                 $task->id,              //optionnal event id
                 [
                     //any other full-calendar supported parameters
-                    'url' => '/calendar/'.$calendarId.'/tasks/'.$task->id.'/edit',
+                    'url' => Route('tasks.edit', ['calendarId' => $agenda->id, 'taskId' => $task->id]),
                     'color' => $task->color,
                 ]
             );
