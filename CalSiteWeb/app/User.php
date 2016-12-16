@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -26,4 +27,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // DEFINE RELATIONSHIPS --------------------------------------------------
+    public function agendas(){
+        return $this->belongsToMany('App\Agenda')
+        ->withPivot('add_task',
+        'edit_task',
+        'delete_task',
+        'add_member',
+        'remove_member',
+        'edit_calendar',
+        'delete_calendar');
+
+    }
+
+    /**
+     *
+     */
+    public function setPasswordAttribute($password){
+        $this->attributes['password'] = Hash::make($password);
+    }
 }
