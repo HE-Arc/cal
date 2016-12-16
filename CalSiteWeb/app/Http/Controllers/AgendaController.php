@@ -87,6 +87,11 @@ class AgendaController extends Controller
         $agenda = Agenda::where('id', $calendarId)->first();
         $tasks = $agenda->tasks()->get();
 
+
+        // récupérer les 2 droit de l'utilisateur sur le calendrier
+        $add_task=0;
+        $edit_cal = 0;
+
         $calendar = Calendar::addEvents([]);
 
         foreach ($tasks as $task) {
@@ -108,7 +113,7 @@ class AgendaController extends Controller
         $calendar->setOptions([
             'timeFormat'  => 'H:mm' // uppercase H for 24-hour clock
         ]);
-        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId]);
+        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId, 'userDroitTask'=> $add_task, "userDroitEditCal"=>$edit_cal]);
     }
 
     /**
