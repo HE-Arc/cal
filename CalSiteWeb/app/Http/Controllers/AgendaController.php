@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use App\Agenda;
@@ -28,13 +29,13 @@ class AgendaController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('createCalendar', ['user' => $user]);
+        return view('handleCalendar', ['user' => $user, 'mode'=>0]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,9 +45,9 @@ class AgendaController extends Controller
         // create the validation rules ------------------------
         $rules = array(
             'title' => 'required|max:255|min:5',
-            'priority_high_color'   => 'required',
-            'priority_medium_color'   => 'required',
-            'priority_low_color'   => 'required',
+            'priority_high_color' => 'required',
+            'priority_medium_color' => 'required',
+            'priority_low_color' => 'required',
         );
 
         $this->validate($request, $rules);
@@ -62,13 +63,13 @@ class AgendaController extends Controller
 
         //Link user to agenda
         $agenda->users()->attach($user->id, [
-            'add_task'          => true,
-            'edit_task'         => true,
-            'delete_task'       => true,
-            'add_member'        => true,
-            'remove_member'     => true,
-            'edit_calendar'     => true,
-            'delete_calendar'   => true,
+            'add_task' => true,
+            'edit_task' => true,
+            'delete_task' => true,
+            'add_member' => true,
+            'remove_member' => true,
+            'edit_calendar' => true,
+            'delete_calendar' => true,
         ]);
 
         $agenda->save();
@@ -79,18 +80,24 @@ class AgendaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($calendarId)
     {
         $agenda = Agenda::where('id', $calendarId)->first();
         $tasks = $agenda->tasks()->get();
+        $users = $agenda->users()->get();
 
+        //correlate currentUser with users from agenda to get necessary information to determine rights of user on calendar
+        $currentUser = Auth::user();
+        foreach ($users as $user)
+            if ($user->id == $currentUser->id)
+                $currentUser = $user;
 
-        // récupérer les 2 droit de l'utilisateur sur le calendrier
-        $add_task=0;
-        $edit_cal = 0;
+        // set aside user rights for creation of tasks and edition of calendar
+        $add_task = $currentUser->pivot->add_task;
+        $edit_cal = $currentUser->pivot->edit_calendar;
 
         $calendar = Calendar::addEvents([]);
 
@@ -111,27 +118,29 @@ class AgendaController extends Controller
             $calendar = Calendar::addEvent($event);
         }
         $calendar->setOptions([
-            'timeFormat'  => 'H:mm' // uppercase H for 24-hour clock
+            'timeFormat' => 'H:mm' // uppercase H for 24-hour clock
         ]);
-        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId, 'userDroitTask'=> $add_task, "userDroitEditCal"=>$edit_cal]);
+        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId, 'userRightsToAddTask' => $add_task, "userRightsToEditCal" => $edit_cal]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($calendarId)
     {
-        //
+        $user = Auth::user();
+        $agenda = Agenda::where('id', $calendarId)->first();
+        return view('handleCalendar', ['user' => $user, 'mode'=>1, 'agenda'=>$agenda]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -142,7 +151,7 @@ class AgendaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

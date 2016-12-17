@@ -7,8 +7,10 @@
             <div class="panel panel-warning">
                 <div class="panel-body">
                     <div class="pan" style="display: flex; justify-content: space-between;">
-                        @if ($userDroitTask)
+                        @if ($userRightsToAddTask)
                         <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}"><button>create Task</button></a>
+                        @endif
+                        @if ($userRightsToEditCal)
                         <a href="{{ route('calendar.edit' , ['calendarId' => $calendarId])}}"><button>edit Calendar</button></a>
                         @endif
                     </div>
