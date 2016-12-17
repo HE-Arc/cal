@@ -145,19 +145,19 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $calendarId)
     {
-        $agenda = Agenda::where('id', $calendarId);
+        $agenda = Agenda::find($calendarId);
+        // create the validation rules ------------------------
         $rules = array(
             'title' => 'required|max:255|min:5',
             'priority_high_color' => 'required',
             'priority_medium_color' => 'required',
             'priority_low_color' => 'required',
         );
-        $this->validate($request,$rules);
 
-        $agenda->title = 'caca ';
+        $this->validate($request, $rules);
+        $agenda->title = $request->title;
         $agenda->save();
 
-//        return response()->json(['isDone' => 'Done !', 'id' => $calendarId]);
         return redirect('/home');
     }
 
