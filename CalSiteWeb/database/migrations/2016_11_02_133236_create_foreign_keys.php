@@ -17,7 +17,7 @@ class CreateForeignKeys extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('calendar_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('calendar_id')->references('id')->on('calendar');
+            $table->foreign('calendar_id')->references('id')->on('calendar')->onDelete('cascade');
         });
         Schema::table('task', function ($table) {
             $table->integer('calendar_id')->unsigned();

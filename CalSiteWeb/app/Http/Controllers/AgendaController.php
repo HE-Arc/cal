@@ -156,12 +156,12 @@ class AgendaController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($calendarId)
     {
+        $tchec = Agenda::where('id', $calendarId);
+        $tchec->delete();
         // suppresion du calendrier
 
-        //retourner la vue home
-        $user = Auth::user();
-        return view('handleCalendar', ['user' => $user]);
+        return redirect('/home');
     }
 }
