@@ -12,7 +12,9 @@
                         Edit the Agenda
                     @endif</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('calendar.store') }}">
+                    <form class="form-horizontal" role="form"
+                          method="@if($mode!=1) POST @else PATCH @endif"
+                          action="@if($mode!=1){{ route('calendar.store') }}@elseif($mode==1){{route('calendar.update', ['calendarId' => $agenda->id])}}@endif">
                         {{ csrf_field() }}
 
                         <!-- Title -->

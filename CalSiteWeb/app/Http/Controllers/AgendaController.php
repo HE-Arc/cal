@@ -143,9 +143,11 @@ class AgendaController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $calendarId)
     {
-        //
+        $agenda = Agenda::where('id', $calendarId)->first();
+        echo $agenda;
+        return response()->json(['isDone' => 'Done !', 'id' => $calendarId]);
     }
 
     /**
@@ -160,6 +162,6 @@ class AgendaController extends Controller
 
         //retourner la vue home
         $user = Auth::user();
-        return view('createCalendar', ['user' => $user]);
+        return view('handleCalendar', ['user' => $user]);
     }
 }
