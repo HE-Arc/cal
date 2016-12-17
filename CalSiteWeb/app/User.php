@@ -34,8 +34,7 @@ class User extends Authenticatable
         ->withPivot('add_task',
         'edit_task',
         'delete_task',
-        'add_member',
-        'remove_member',
+        'edit_member',
         'edit_calendar',
         'delete_calendar');
 
