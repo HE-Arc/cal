@@ -9,13 +9,16 @@
                 <!-- List group -->
                 <ul class="list-group">
                     @foreach ($listAgendas as $key => $agenda)
+                        {{ Form::open(array('route' => array('calendar.destroy', $key), 'method' => 'delete')) }}
                         <li class="list-group-item"><a href="{{ route('calendar.show', ['calendarId' => $key]) }}">{{ $agenda }} </a>
 
+                            {{ Form::button('<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>',
+                            array('type' => 'submit','class' => 'btn btn-default'))}}
+                            {{ Form::close()}}
                         </li>
                     @endforeach
-                    <li class="list-group-item"><a href="{{ route('calendar.create')}}">New agenda</a></li>
+                    <li class="list-group-item"><a href="{{ route('calendar.create') }}">New agenda</a></li>
                 </ul>
-                <a class="glyphicon glyphicon-remove-sign" href="{{ route('calendar.destroy',['id'=>$key])}}"></a>
             </div>
 
         </div>
