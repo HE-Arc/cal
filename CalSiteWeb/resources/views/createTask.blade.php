@@ -17,7 +17,7 @@
                         @if($mode!=1)
                             {{ Form::open(array('route' => array('tasks.store','calendarId' => $calendarId), 'method' => 'post', 'class' =>"form-horizontal")) }}
                         @elseif($mode==1)
-                            {{ Form::open(array('route' => array('tasks.update', 'calendarId' => $calendarId, 'id' =>$idTask), 'method' => 'patch','class' =>"form-horizontal")) }}
+                            {{ Form::open(array('route' => array('tasks.update', 'calendarId' => $calendarId, 'id' =>$task->id), 'method' => 'patch','class' =>"form-horizontal")) }}
                         @endif
                         {{ csrf_field() }}
                         <!-- Title -->
@@ -41,8 +41,11 @@
                                 <label for="time_start" class="col-md-4 control-label">Start time</label>
 
                                 <div class="col-md-6 ">
-                                    <input type="date" name="date_start" value="{{ date('Y-m-d') }}">
-                                    <input type="time" name="time_start" value="{{ date('H:i') }}">
+                                    <input type="date" name="date_start"
+                                    value="@if($mode==1){{$timeStart[0]}} @else {{ date('Y-m-d') }} @endif">
+                                    {{$timeStart[0]}}
+                                    <input type="time" name="time_start"
+                                    value="@if($mode==1){{ $task->time_start }} @else {{ date('H:i') }} @endif">
                                     @if ($errors->has('date_start'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_start') }}</strong>
@@ -61,8 +64,8 @@
                                 <label for="time_start" class="col-md-4 control-label">End time</label>
 
                                 <div class="col-md-6 ">
-                                    <input type="date" name="date_end" value="{{ date('Y-m-d') }}">
-                                    <input type="time" name="time_end" value="{{ date('H:i', strtotime('+1 hour')) }}">
+                                    <input type="date" name="date_end" value="@if($mode==1){{ $task->time_end }} @else {{ date('Y-m-d') }} @endif">
+                                    <input type="time" name="time_end" value="@if($mode==1){{ $task->time_end }} @else {{ date('H:i', strtotime('+1 hour')) }}@endif">
                                     @if ($errors->has('date_end'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_end') }}</strong>
@@ -82,9 +85,9 @@
 
                                 <div class="col-md-6">
                                     <select id="priority" name="priority" required>
-                                        <option value="3">High</option>
-                                        <option value="2" selected>Medium</option>
-                                        <option value="1">Low</option>
+                                        <option value="3" @if($mode==1 && $task->priority == 3) selected @endif>High</option>
+                                        <option value="2"  @if($mode==1 && $task->priority == 2) selected @else selected @endif>Medium</option>
+                                        <option value="1" @if($mode==1 && $task->priority == 1) selected @endif>Low</option>
                                     </select>
                                     @if ($errors->has('priority'))
                                         <span class="help-block">
@@ -100,7 +103,7 @@
 
                                 <div class="col-md-6">
                                     <input id="description" type="text" class="form-control" name="description"
-                                           value="{{ old('description') }}">
+                                           value="@if($mode==1){{ $task->description}}@endif">
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
@@ -116,7 +119,7 @@
 
                                 <div class="col-md-6">
                                     <input id="location" type="text" class="form-control" name="location"
-                                           value="{{ old('location') }}">
+                                           value="@if($mode==1){{ $task->location}}@endif">
 
                                     @if ($errors->has('location'))
                                         <span class="help-block">
@@ -132,7 +135,7 @@
 
                                 <div class="col-md-6">
                                     <input id="attachment_url" type="text" class="form-control" name="attachment_url"
-                                           value="{{ old('attachment_url') }}">
+                                           value="@if($mode==1){{ $task->attachment_url}}@endif">
 
                                     @if ($errors->has('attachment_url'))
                                         <span class="help-block">
