@@ -2,3 +2,42 @@
 	calendrier
 2. 	possibilité d'ajouter les calendrier et ainsi modifier les couleurs
 	pour différencier dans le feed.
+	
+deploy:
+git clone
+goto www/config
+nano nginx.conf
+	root /var/www/cal/CalSiteWeb/public
+goto www/cal/CalSiteWeb/
+	sudo setfacl -R -m u:www-data:rwx storage bootstrap/cache
+    sudo setfacl -dR -m g:cal:rwx storage bootstrap/cache
+goto www/cal/CalSiteWeb/config/
+nano database.php
+	default => env('MYSQL_CONNECTION')
+	'mysql' => [
+            'driver' => 'mysql',
+            'host' => env('MYSQL_HOST'),
+            'port' => env('MYSQL_PORT'),
+            'database' => env('MYSQL_DATABASE'),
+            'username' => env('MYSQL_USERNAME'), ---> right now hard coding 'cal_production'
+            'password' => env('MYSQL_PASSWORD'),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => false
+        ],
+mysql --user $MYSQL_USERNAME --host mysql --password $MYSQL_DATABASE
+echo $MYSQL_PASSWORD <-- if you need to check your password
+setup mysql db
+	drop schema cal_production (if it already exists)
+	create schema cal_production
+setup dependencies
+	goto www/cal/CalSiteWeb/
+	cp .env.example .env
+	php artisan key:generate
+	npm install
+	composer update
+	gulp
+sudo sv restart nginx
+	
+	
