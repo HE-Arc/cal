@@ -129,10 +129,11 @@ class AgendaController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($calendarId)
     {
         $user = Auth::user();
-        return view('createCalendar', ['user' => $user, 'mode'=>1]);
+        $agenda = Agenda::where('id', $calendarId)->first();
+        return view('createCalendar', ['user' => $user, 'mode'=>1, 'agenda'=>$agenda]);
     }
 
     /**

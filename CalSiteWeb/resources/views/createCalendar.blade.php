@@ -5,7 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Create your Agenda</div>
+                <div class="panel-heading">
+                    @if($mode!=1)
+                        Create your Agenda
+                    @elseif($mode==1)
+                        Edit the Agenda
+                        {{$agenda}}
+                    @endif</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('calendar.store') }}">
                         {{ csrf_field() }}
@@ -15,7 +21,7 @@
                             <label for="title" class="col-md-4 control-label">Title</label>
 
                             <div class="col-md-6">
-                                <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
+                                <input id="title" type="text" class="form-control" name="title" value="@if($mode==1){{ $agenda->title }} @endif" required autofocus>
 
                                 @if ($errors->has('title'))
                                     <span class="help-block">
@@ -30,7 +36,7 @@
                             <label for="priority_high_color" class="col-md-4 control-label">High priority color</label>
 
                             <div class="col-md-6">
-                                <input type="color" name="priority_high_color" value="#ff0000">
+                                <input type="color" name="priority_high_color" value="@if($mode==1){{ '#'.$agenda->priority_high_color}}@endif">
 
                                 @if ($errors->has('priority_high_color'))
                                     <span class="help-block">
@@ -45,7 +51,7 @@
                             <label for="priority_medium_color" class="col-md-4 control-label">Medium priority color</label>
 
                             <div class="col-md-6">
-                                <input type="color" name="priority_medium_color" value="#00ff00">
+                                <input type="color" name="priority_medium_color" value="@if($mode==1){{ '#'.$agenda->priority_medium_color}}@endif">
 
                                 @if ($errors->has('priority_medium_color'))
                                     <span class="help-block">
@@ -60,7 +66,7 @@
                             <label for="priority_low_color" class="col-md-4 control-label">Low priority color</label>
 
                             <div class="col-md-6">
-                                <input type="color" name="priority_low_color" value="#0000ff">
+                                <input type="color" name="priority_low_color" value="@if($mode==1){{ '#'.$agenda->priority_low_color}}@endif">
 
                                 @if ($errors->has('priority_low_color'))
                                     <span class="help-block">
@@ -75,7 +81,11 @@
                             <div class="col-md-6 col-md-offset-4">
                                 <!-- TODO: fork onto update if in edition mode-->
                                 <button type="submit" class="btn btn-primary">
+                                    @if($mode!=1)
                                     Create
+                                    @elseif($mode==1)
+                                    Save
+                                    @endif
                                 </button>
                             </div>
                         </div>
