@@ -38,13 +38,13 @@ class Task extends Model
     {
         $agenda = $this->agenda()->first();
         switch ($this->priority) {
-            case '1':
+            case '0':
                 $color = "#".$agenda->priority_low_color;
                 break;
-            case '2':
+            case '1':
                 $color = "#".$agenda->priority_medium_color;
                 break;
-            case '3':
+            case '2':
                 $color = "#".$agenda->priority_high_color;
                 break;
 
