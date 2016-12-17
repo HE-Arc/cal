@@ -26,15 +26,15 @@ class DatabaseSeeder extends Seeder
         // seed our calendars table ------------------------
         $calendar1 = Agenda::create(array(
             'title'                 =>  'Calendar1',
-            'priority_low_color'    =>  'FFFFFF',
-            'priority_medium_color' =>  '0000FF',
-            'priority_high_color'   =>  'FF0000',
+            'priority_low_color'    =>  '#FFFFFF',
+            'priority_medium_color' =>  '#0000FF',
+            'priority_high_color'   =>  '#FF0000',
         ));
         $calendar2 = Agenda::create(array(
             'title'                 =>  'Calendar2',
-            'priority_low_color'    =>  '0F0F0F',
-            'priority_medium_color' =>  '00FFFF',
-            'priority_high_color'   =>  'FFFF00',
+            'priority_low_color'    =>  '#0F0F0F',
+            'priority_medium_color' =>  '#00FFFF',
+            'priority_high_color'   =>  '#FFFF00',
         ));
         $this->command->info('Calendars seeded !');
 
