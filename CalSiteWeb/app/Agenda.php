@@ -19,41 +19,46 @@ class Agenda extends Model
     ];
 
     // DEFINE RELATIONSHIPS --------------------------------------------------
-    public function tasks(){
+    public function tasks()
+    {
         return $this->hasMany('App\Task');
     }
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany('App\User')
-        ->withPivot('add_task',
-        'edit_task',
-        'delete_task',
-        'add_member',
-        'remove_member',
-        'edit_calendar',
-        'delete_calendar');
+            ->withPivot('add_task',
+                'edit_task',
+                'delete_task',
+                'edit_member',
+                'edit_calendar',
+                'delete_calendar');
 
     }
+
     // redefining delete function for rights reserved user
     public static function deleteWithRights($user, $agenda)
     {
 //        dd($user);
-        if($user->pivot->delete_calendar)
+        if ($user->pivot->delete_calendar)
             $agenda->delete();
         else
             DB::table('agenda_user')->where('user_id', '=', $user->id)->delete();
     }
 
     // Accessors and mutators -----------------------------------------------
-    public function setPriorityLowColorAttribute($value){
+    public function setPriorityLowColorAttribute($value)
+    {
         $this->attributes['priority_low_color'] = substr($value, 1);
     }
 
-    public function setPriorityMediumColorAttribute($value){
+    public function setPriorityMediumColorAttribute($value)
+    {
         $this->attributes['priority_medium_color'] = substr($value, 1);
     }
 
-    public function setPriorityHighColorAttribute($value){
+    public function setPriorityHighColorAttribute($value)
+    {
         $this->attributes['priority_high_color'] = substr($value, 1);
     }
 }

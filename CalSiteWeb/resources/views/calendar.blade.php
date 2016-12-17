@@ -10,6 +10,9 @@
                         @if ($userRightsToAddTask)
                         <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}"><button>create Task</button></a>
                         @endif
+                        @if($userRightsToEditMember)
+                                <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}"><button>Edit Member</button></a>
+                            @endif
                         @if ($userRightsToEditCal)
                         <a href="{{ route('calendar.edit' , ['calendarId' => $calendarId])}}"><button>edit Calendar</button></a>
                         @endif

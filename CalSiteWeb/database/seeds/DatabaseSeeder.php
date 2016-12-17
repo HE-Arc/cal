@@ -100,8 +100,7 @@ class DatabaseSeeder extends Seeder
             'add_task'          => true,
             'edit_task'         => true,
             'delete_task'       => true,
-            'add_member'        => true,
-            'remove_member'     => true,
+            'edit_member'       => true,
             'edit_calendar'     => true,
             'delete_calendar'   => true,
         ]);
@@ -109,8 +108,7 @@ class DatabaseSeeder extends Seeder
             'add_task'          => false,
             'edit_task'         => false,
             'delete_task'       => false,
-            'add_member'        => false,
-            'remove_member'     => false,
+            'edit_member'       => false,
             'edit_calendar'     => false,
             'delete_calendar'   => false,
         ]);
@@ -119,8 +117,7 @@ class DatabaseSeeder extends Seeder
             'add_task'          => true,
             'edit_task'         => true,
             'delete_task'       => true,
-            'add_member'        => true,
-            'remove_member'     => true,
+            'edit_member'       => true,
             'edit_calendar'     => true,
             'delete_calendar'   => true,
         ]);
