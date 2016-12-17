@@ -81,9 +81,10 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($calendarId, $idtask)
+    public function edit($calendarId, $id)
     {
-        return view('createTask', ['calendarId' => $calendarId,'mode' => 1,'idTask'=>$idtask]);
+        $task = Task::where('id', $id)->first();
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 1,'idTask'=>$id, 'task' => $task]);
     }
 
     /**
