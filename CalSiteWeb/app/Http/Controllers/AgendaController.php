@@ -173,8 +173,14 @@ class AgendaController extends Controller
      */
     public function destroy($calendarId)
     {
-        $tchec = Agenda::where('id', $calendarId);
-        $tchec->delete();
+        $agenda = Agenda::find($calendarId);
+        $users = $agenda->users()->get();
+        //correlate currentUser with users from agenda to get necessary information to determine rights of user on calendar
+        $currentUser = Auth::user();
+        foreach ($users as $user)
+            if ($user->id == $currentUser->id)
+                $currentUser = $user;
+        Agenda::deleteWithRights($currentUser, $agenda);
         // suppresion du calendrier
 
         return redirect('/home');

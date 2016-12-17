@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Agenda extends Model
 {
@@ -32,6 +33,15 @@ class Agenda extends Model
         'edit_calendar',
         'delete_calendar');
 
+    }
+    // redefining delete function for rights reserved user
+    public static function deleteWithRights($user, $agenda)
+    {
+//        dd($user);
+        if($user->pivot->delete_calendar)
+            $agenda->delete();
+        else
+            DB::table('agenda_user')->where('user_id', '=', $user->id)->delete();
     }
 
     // Accessors and mutators -----------------------------------------------
