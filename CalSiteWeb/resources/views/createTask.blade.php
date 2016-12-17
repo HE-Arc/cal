@@ -26,7 +26,7 @@
 
                                 <div class="col-md-6">
                                     <input id="title" type="text" class="form-control" name="title"
-                                           value="@if($mode==1){{ $task->title }} @endif" required autofocus>
+                                           value="@if($mode==1){{ $task->title }}@endif" required autofocus>
 
                                     @if ($errors->has('title'))
                                         <span class="help-block">
@@ -42,10 +42,9 @@
 
                                 <div class="col-md-6 ">
                                     <input type="date" name="date_start"
-                                    value="@if($mode==1){{$timeStart[0]}} @else {{ date('Y-m-d') }} @endif">
-                                    {{$timeStart[0]}}
+                                    value="@if($mode==1){{date_format($dateTimeStart,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
                                     <input type="time" name="time_start"
-                                    value="@if($mode==1){{ $task->time_start }} @else {{ date('H:i') }} @endif">
+                                    value="@if($mode==1){{date_format($dateTimeStart,'H:i')}}@else{{ date('H:i') }}@endif">
                                     @if ($errors->has('date_start'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_start') }}</strong>
@@ -64,8 +63,8 @@
                                 <label for="time_start" class="col-md-4 control-label">End time</label>
 
                                 <div class="col-md-6 ">
-                                    <input type="date" name="date_end" value="@if($mode==1){{ $task->time_end }} @else {{ date('Y-m-d') }} @endif">
-                                    <input type="time" name="time_end" value="@if($mode==1){{ $task->time_end }} @else {{ date('H:i', strtotime('+1 hour')) }}@endif">
+                                    <input type="date" name="date_end" value="@if($mode==1){{date_format($dateTimeEnd,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
+                                    <input type="time" name="time_end" value="@if($mode==1){{date_format($dateTimeEnd,'H:i')}}@else{{ date('H:i', strtotime('+1 hour')) }}@endif">
                                     @if ($errors->has('date_end'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_end') }}</strong>

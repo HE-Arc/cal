@@ -85,12 +85,12 @@ class TaskController extends Controller
     {
         $task = Task::where('id', $id)->first();
 
-        $valueTimeStart = explode(" ", $task->time_start);
-        $valueTimeEnd = explode(" ", $task->time_end);
 
-        $t =date_create_from_format('Y-m-d', $valueTimeStart[0]);
 
-        return view('createTask', ['calendarId' => $calendarId,'mode' => 1, 'task' => $task, 'timeStart' => $valueTimeStart,'timeEnd' => $valueTimeEnd, 't'=>$t]);
+        $dateTimeStart = date_create($task->time_start);
+        $dateTimeEnd = date_create($task->time_end);
+
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 1, 'task' => $task, 'dateTimeStart' => $dateTimeStart,'dateTimeEnd' => $dateTimeEnd]);
     }
 
     /**
