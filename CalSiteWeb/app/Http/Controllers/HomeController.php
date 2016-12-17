@@ -69,6 +69,6 @@ class HomeController extends Controller
         ]);
 
 
-        return view('home', ['calendar' => $calendar, 'listAgendas' => $listAgendas]);
+        return view('home', ['calendar' => $calendar, 'listAgendas' => $listAgendas, 'user' => $user, 'agendas'=>$agendas]);
     }
 }

@@ -1,6 +1,0 @@
-{
-    "require": {
-        "rcrowe/twigbridge": "^0.9.3",
-        "maddhatter/laravel-fullcalendar": "^1.2"
-    }
-}

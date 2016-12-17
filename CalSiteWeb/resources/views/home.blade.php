@@ -3,17 +3,21 @@
 @section('content')
 <div class="container">
     <div class="row">
+
+        {{$agendas}}
+        {{$user}}
         <div class="col-md-3">
             <div class="panel panel-info">
-                <div class="panel-heading">Yours agendas</div>
+                <div class="panel-heading">Your agendas</div>
+
                 <!-- List group -->
                 <ul class="list-group">
                     @foreach ($listAgendas as $key => $agenda)
-                        {{ Form::open(array('route' => array('calendar.destroy', $key), 'method' => 'delete')) }}
+                        {{ Form::open(['route' => ['calendar.destroy', $key], 'method' => 'delete']) }}
                         <li class="list-group-item"><a href="{{ route('calendar.show', ['calendarId' => $key]) }}">{{ $agenda }} </a>
 
                             {{ Form::button('<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>',
-                            array('type' => 'submit','class' => 'btn btn-default'))}}
+                            ['type' => 'submit','class' => 'btn btn-default'])}}
                             {{ Form::close()}}
                         </li>
                     @endforeach
