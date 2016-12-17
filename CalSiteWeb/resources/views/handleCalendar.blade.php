@@ -10,7 +10,6 @@
                         Create your Agenda
                     @elseif($mode==1)
                         Edit the Agenda
-                        {{$agenda}}
                     @endif</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('calendar.store') }}">

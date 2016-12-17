@@ -29,7 +29,7 @@ class AgendaController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('createCalendar', ['user' => $user, 'mode'=>0]);
+        return view('handleCalendar', ['user' => $user, 'mode'=>0]);
     }
 
     /**
@@ -133,7 +133,7 @@ class AgendaController extends Controller
     {
         $user = Auth::user();
         $agenda = Agenda::where('id', $calendarId)->first();
-        return view('createCalendar', ['user' => $user, 'mode'=>1, 'agenda'=>$agenda]);
+        return view('handleCalendar', ['user' => $user, 'mode'=>1, 'agenda'=>$agenda]);
     }
 
     /**
