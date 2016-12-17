@@ -36,7 +36,6 @@
                             @endif
                         </div>
                     </div>
-
                     <!-- Priority high color -->
                     <div class="form-group{{ $errors->has('priority_high_color') ? ' has-error' : '' }}">
                         <label for="priority_high_color" class="col-md-4 control-label">High priority color</label>
