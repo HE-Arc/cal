@@ -180,7 +180,7 @@ class AgendaController extends Controller
         foreach ($users as $user)
             if ($user->id == $currentUser->id)
                 $currentUser = $user;
-        Agenda::deleteWithRights($currentUser, $agenda);
+        Agenda::deleteAgendaWithRights($currentUser, $agenda);
         // suppresion du calendrier
 
         return redirect('/home');

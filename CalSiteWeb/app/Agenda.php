@@ -35,13 +35,14 @@ class Agenda extends Model
 
     }
     // redefining delete function for rights reserved user
-    public static function deleteWithRights($user, $agenda)
+    public static function deleteAgendaWithRights($user, $agenda)
     {
 //        dd($user);
         if($user->pivot->delete_calendar)
             $agenda->delete();
         else
             DB::table('agenda_user')->where('user_id', '=', $user->id)->delete();
+
     }
 
     // Accessors and mutators -----------------------------------------------
