@@ -14,7 +14,7 @@
                     </div>
                     <div class="panel-body">
                     @if($mode!=1)
-                        {{ Form::open(array('route' => array('calendar.create',$agenda->id), 'method' => 'post', 'class' =>"form-horizontal")) }}
+                        {{ Form::open(array('route' => array('calendar.store'), 'method' => 'post', 'class' =>"form-horizontal")) }}
                     @elseif($mode==1)
                         {{ Form::open(array('route' => array('calendar.update', $agenda->id), 'method' => 'patch','class' =>"form-horizontal")) }}
                     @endif
@@ -85,7 +85,7 @@
                                 @if($mode!=1)
                                     Create
                                 @elseif($mode==1)
-                                    Save
+                                    Edit
                                 @endif
                             </button>
                         </div>

@@ -25,13 +25,13 @@ class DatabaseSeeder extends Seeder
 
         // seed our calendars table ------------------------
         $calendar1 = Agenda::create(array(
-            'title'                 =>  'Test1',
+            'title'                 =>  'Calendar1',
             'priority_low_color'    =>  'FFFFFF',
             'priority_medium_color' =>  '0000FF',
             'priority_high_color'   =>  'FF0000',
         ));
         $calendar2 = Agenda::create(array(
-            'title'                 =>  'Test2',
+            'title'                 =>  'Calendar2',
             'priority_low_color'    =>  '0F0F0F',
             'priority_medium_color' =>  '00FFFF',
             'priority_high_color'   =>  'FFFF00',
@@ -81,10 +81,22 @@ class DatabaseSeeder extends Seeder
             'email'         =>  'test@test.com',
             'password'      =>  '123456',
         ));
+
+        $user1 = User::create(array(
+            'alias'         =>  'user1',
+            'email'         =>  'user1@user.com',
+            'password'      =>  'user1',
+        ));
+
+        $user2 = User::create(array(
+            'alias'         =>  'user2',
+            'email'         =>  'user2@user.com',
+            'password'      =>  'user2',
+        ));
         $this->command->info('Users seeded !');
 
         // link user to calendar
-        $userTest->agendas()->attach($calendar1->id, [
+        $user1->agendas()->attach($calendar1->id, [
             'add_task'          => true,
             'edit_task'         => true,
             'delete_task'       => true,
@@ -93,14 +105,24 @@ class DatabaseSeeder extends Seeder
             'edit_calendar'     => true,
             'delete_calendar'   => true,
         ]);
-        $calendar2->users()->attach($userTest->id, [
+        $calendar2->users()->attach($user1->id, [
             'add_task'          => false,
             'edit_task'         => false,
             'delete_task'       => false,
-            'add_member'        => true,
+            'add_member'        => false,
             'remove_member'     => false,
             'edit_calendar'     => false,
             'delete_calendar'   => false,
+        ]);
+
+        $user2->agendas()->attach($calendar2->id, [
+            'add_task'          => true,
+            'edit_task'         => true,
+            'delete_task'       => true,
+            'add_member'        => true,
+            'remove_member'     => true,
+            'edit_calendar'     => true,
+            'delete_calendar'   => true,
         ]);
 
 

@@ -25,7 +25,7 @@ class TaskController extends Controller
      */
     public function create($calendarId)
     {
-        return view('createTask', ['calendarId' => $calendarId]);
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 0]);
     }
 
     /**
@@ -81,9 +81,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($calendarId, $id)
+    public function edit($calendarId, $idtask)
     {
-        //
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 1,'idTask'=>$idtask]);
     }
 
     /**
