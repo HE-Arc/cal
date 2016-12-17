@@ -73,6 +73,7 @@
                         <!-- Submit -->
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
+                                <!-- TODO: fork onto update if in edition mode-->
                                 <button type="submit" class="btn btn-primary">
                                     Create
                                 </button>
