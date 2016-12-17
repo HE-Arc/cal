@@ -14,9 +14,9 @@
                     </div>
                     <div class="panel-body">
                     @if($mode!=1)
-                        {{ Form::open(array('route' => array('calendar.create',$agenda->id), 'method' => 'post')) }}
+                        {{ Form::open(array('route' => array('calendar.create',$agenda->id), 'method' => 'post', 'class' =>"form-horizontal")) }}
                     @elseif($mode==1)
-                        {{ Form::open(array('route' => array('calendar.update', $agenda->id), 'method' => 'patch')) }}
+                        {{ Form::open(array('route' => array('calendar.update', $agenda->id), 'method' => 'patch','class' =>"form-horizontal")) }}
                     @endif
 
                     {{ csrf_field() }}
