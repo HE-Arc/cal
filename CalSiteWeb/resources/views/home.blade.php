@@ -9,11 +9,15 @@
                 <!-- List group -->
                 <ul class="list-group">
                     @foreach ($listAgendas as $key => $agenda)
-                        <li class="list-group-item"><a href="{{ route('calendar.show', ['calendarId' => $key]) }}">{{ $agenda }} </a></li>
+                        <li class="list-group-item"><a href="{{ route('calendar.show', ['calendarId' => $key]) }}">{{ $agenda }} </a>
+
+                        </li>
                     @endforeach
-                    <li class="list-group-item"><a href="{{ route('calendar.create') }}">New agenda</a></li>
+                    <li class="list-group-item"><a href="{{ route('calendar.create')}}">New agenda</a></li>
                 </ul>
+                <a class="glyphicon glyphicon-remove-sign" href="{{ route('calendar.destroy',['id'=>$key])}}"></a>
             </div>
+
         </div>
         <div class="col-md-8">
             <div class="panel panel-warning">

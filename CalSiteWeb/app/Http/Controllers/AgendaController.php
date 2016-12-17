@@ -147,6 +147,10 @@ class AgendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // suppresion du calendrier
+
+        //retourner la vue home
+        $user = Auth::user();
+        return view('createCalendar', ['user' => $user]);
     }
 }
