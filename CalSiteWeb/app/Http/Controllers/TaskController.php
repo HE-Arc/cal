@@ -142,6 +142,8 @@ class TaskController extends Controller
     public function destroy($calendarId, $id)
     {
         // redirect
+        $task = Task::find($id);
+        $task->delete();
         return redirect()->route('calendar.show', ['calendarId' => $calendarId]);
     }
 }

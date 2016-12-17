@@ -18,8 +18,7 @@ class CreatePermissionTable extends Migration
             $table->boolean('add_task');
             $table->boolean('edit_task');
             $table->boolean('delete_task');
-            $table->boolean('add_member');
-            $table->boolean('remove_member');
+            $table->boolean('edit_member');
             $table->boolean('edit_calendar');
             $table->boolean('delete_calendar');
         });

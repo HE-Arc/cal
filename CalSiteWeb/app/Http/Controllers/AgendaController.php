@@ -66,8 +66,7 @@ class AgendaController extends Controller
             'add_task' => true,
             'edit_task' => true,
             'delete_task' => true,
-            'add_member' => true,
-            'remove_member' => true,
+            'edit_member' => true,
             'edit_calendar' => true,
             'delete_calendar' => true,
         ]);
@@ -98,6 +97,7 @@ class AgendaController extends Controller
         // set aside user rights for creation of tasks and edition of calendar
         $add_task = $currentUser->pivot->add_task;
         $edit_cal = $currentUser->pivot->edit_calendar;
+        $edit_member = $currentUser->pivot->edit_member;
 
         $calendar = Calendar::addEvents([]);
 
@@ -120,7 +120,7 @@ class AgendaController extends Controller
         $calendar->setOptions([
             'timeFormat' => 'H:mm' // uppercase H for 24-hour clock
         ]);
-        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId, 'userRightsToAddTask' => $add_task, "userRightsToEditCal" => $edit_cal]);
+        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId,'userRightsToEditMember' => $edit_member ,'userRightsToAddTask' => $add_task, "userRightsToEditCal" => $edit_cal]);
     }
 
     /**
