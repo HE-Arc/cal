@@ -6,17 +6,17 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        @if($mode!=1)
+                        @if($mode=='create')
                             Create new Task
-                        @elseif($mode==1)
+                        @elseif($mode=='edit')
                             Edit the Task
                         @endif
                     </div>
                     <div class="panel-body">
 
-                        @if($mode!=1)
+                        @if($mode=='create')
                             {{ Form::open(array('route' => array('tasks.store','calendarId' => $calendarId), 'method' => 'post', 'class' =>"form-horizontal")) }}
-                        @elseif($mode==1)
+                        @elseif($mode=='edit')
                             {{ Form::open(array('route' => array('tasks.update', 'calendarId' => $calendarId, 'id' =>$task->id), 'method' => 'patch','class' =>"form-horizontal")) }}
                         @endif
                         {{ csrf_field() }}
@@ -26,7 +26,7 @@
 
                                 <div class="col-md-6">
                                     <input id="title" type="text" class="form-control" name="title"
-                                           value="@if($mode==1){{ $task->title }}@endif" required autofocus>
+                                           value="@if($mode=='edit'){{ $task->title }}@endif" required autofocus>
 
                                     @if ($errors->has('title'))
                                         <span class="help-block">
@@ -42,9 +42,9 @@
 
                                 <div class="col-md-6 ">
                                     <input type="date" name="date_start"
-                                    value="@if($mode==1){{date_format($dateTimeStart,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
+                                    value="@if($mode=='edit'){{date_format($dateTimeStart,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
                                     <input type="time" name="time_start"
-                                    value="@if($mode==1){{date_format($dateTimeStart,'H:i')}}@else{{ date('H:i') }}@endif">
+                                    value="@if($mode=='edit'){{date_format($dateTimeStart,'H:i')}}@else{{ date('H:i') }}@endif">
                                     @if ($errors->has('date_start'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_start') }}</strong>
@@ -63,8 +63,8 @@
                                 <label for="time_start" class="col-md-4 control-label">End time</label>
 
                                 <div class="col-md-6 ">
-                                    <input type="date" name="date_end" value="@if($mode==1){{date_format($dateTimeEnd,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
-                                    <input type="time" name="time_end" value="@if($mode==1){{date_format($dateTimeEnd,'H:i')}}@else{{ date('H:i', strtotime('+1 hour')) }}@endif">
+                                    <input type="date" name="date_end" value="@if($mode=='edit'){{date_format($dateTimeEnd,'Y-m-d')}}@else{{ date('Y-m-d') }}@endif">
+                                    <input type="time" name="time_end" value="@if($mode=='edit'){{date_format($dateTimeEnd,'H:i')}}@else{{ date('H:i', strtotime('+1 hour')) }}@endif">
                                     @if ($errors->has('date_end'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('date_end') }}</strong>
@@ -84,9 +84,9 @@
 
                                 <div class="col-md-6">
                                     <select id="priority" name="priority" required>
-                                        <option value="3" @if($mode==1 && $task->priority == 3) selected @endif>High</option>
-                                        <option value="2"  @if($mode==1 && $task->priority == 2) selected @else selected @endif>Medium</option>
-                                        <option value="1" @if($mode==1 && $task->priority == 1) selected @endif>Low</option>
+                                        <option value="3" @if($mode=='edit' && $task->priority == 3) selected @endif>High</option>
+                                        <option value="2"  @if($mode=='edit' && $task->priority == 2) selected @else selected @endif>Medium</option>
+                                        <option value="1" @if($mode=='edit' && $task->priority == 1) selected @endif>Low</option>
                                     </select>
                                     @if ($errors->has('priority'))
                                         <span class="help-block">
@@ -102,7 +102,7 @@
 
                                 <div class="col-md-6">
                                     <input id="description" type="text" class="form-control" name="description"
-                                           value="@if($mode==1){{ $task->description}}@endif">
+                                           value="@if($mode=='edit'){{ $task->description}}@endif">
 
                                     @if ($errors->has('description'))
                                         <span class="help-block">
@@ -118,7 +118,7 @@
 
                                 <div class="col-md-6">
                                     <input id="location" type="text" class="form-control" name="location"
-                                           value="@if($mode==1){{ $task->location}}@endif">
+                                           value="@if($mode=='edit'){{ $task->location}}@endif">
 
                                     @if ($errors->has('location'))
                                         <span class="help-block">
@@ -134,7 +134,7 @@
 
                                 <div class="col-md-6">
                                     <input id="attachment_url" type="text" class="form-control" name="attachment_url"
-                                           value="@if($mode==1){{ $task->attachment_url}}@endif">
+                                           value="@if($mode=='edit'){{ $task->attachment_url}}@endif">
 
                                     @if ($errors->has('attachment_url'))
                                         <span class="help-block">
@@ -147,9 +147,9 @@
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
-                                        @if($mode!=1)
+                                        @if($mode=='create')
                                             Create
-                                        @elseif($mode==1)
+                                        @elseif($mode=='edit')
                                             Edit
                                         @endif
                                     </button>

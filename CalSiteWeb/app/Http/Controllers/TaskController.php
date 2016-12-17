@@ -25,7 +25,7 @@ class TaskController extends Controller
      */
     public function create($calendarId)
     {
-        return view('createTask', ['calendarId' => $calendarId,'mode' => 0]);
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 'create']);
     }
 
     /**
@@ -90,7 +90,7 @@ class TaskController extends Controller
         $dateTimeStart = date_create($task->time_start);
         $dateTimeEnd = date_create($task->time_end);
 
-        return view('createTask', ['calendarId' => $calendarId,'mode' => 1, 'task' => $task, 'dateTimeStart' => $dateTimeStart,'dateTimeEnd' => $dateTimeEnd]);
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 'edit', 'task' => $task, 'dateTimeStart' => $dateTimeStart,'dateTimeEnd' => $dateTimeEnd]);
     }
 
     /**
@@ -102,7 +102,35 @@ class TaskController extends Controller
      */
     public function update(Request $request, $calendarId, $id)
     {
-        //
+        // sql
+        $task = Task::find($id);
+        // create the validation rules ------------------------
+        $rules = array(
+            'title'             => 'required|max:255|min:3',
+            'time_start'        => 'required',
+            'date_start'        => 'required',
+            'time_end'          => 'required',
+            'date_end'          => 'required',
+            'description'       => 'max:255',
+            'priority'          => 'required',
+            'location'          => 'max:255',
+            'attachment_url'    => 'max:255',
+        );
+        $this->validate($request, $rules);
+
+        $task->title = $request->title;
+        $task->time_start = new DateTime($request->date_start."T".$request->time_start);
+        $task->time_end = new DateTime($request->date_end."T".$request->time_end);
+        $task->description = $request->description;
+        $task->priority = $request->priority;
+        $task->location = $request->location;
+        $task->attachment_url = $request->attachment_url;
+        $task->agenda_id = $calendarId;
+        $task->save();
+
+
+        // redirect
+        return redirect()->route('calendar.show', ['calendarId' => $calendarId]);
     }
 
     /**
@@ -113,6 +141,7 @@ class TaskController extends Controller
      */
     public function destroy($calendarId, $id)
     {
-        //
+        // redirect
+        return redirect()->route('calendar.show', ['calendarId' => $calendarId]);
     }
 }

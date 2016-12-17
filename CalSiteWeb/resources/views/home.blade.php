@@ -4,8 +4,6 @@
 <div class="container">
     <div class="row">
 
-        {{$agendas}}
-        {{$user}}
         <div class="col-md-3">
             <div class="panel panel-info">
                 <div class="panel-heading">Your agendas</div>
