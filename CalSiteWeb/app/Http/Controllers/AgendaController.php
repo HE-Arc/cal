@@ -156,6 +156,10 @@ class AgendaController extends Controller
 
         $this->validate($request, $rules);
         $agenda->title = $request->title;
+        $agenda->priority_low_color = $request->priority_low_color;
+        $agenda->priority_medium_color = $request->priority_medium_color;
+        $agenda->priority_high_color = $request->priority_high_color;
+
         $agenda->save();
 
         return redirect('/home');
