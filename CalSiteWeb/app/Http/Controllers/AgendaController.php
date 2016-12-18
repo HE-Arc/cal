@@ -126,13 +126,13 @@ class AgendaController extends Controller
         ]);
 
         return view('calendar', ['calendar' => $calendar,
-                                'calendarId' => $calendarId,
-                                'userRightsToEditMember' => $edit_member ,
-                                'userRightsToAddTask' => $add_task,
-                                "userRightsToEditCal" => $edit_cal,
-                                'admin' => User::find($agenda->admin_id),
-                                'agenda' => $agenda,
-                                'members' => $users]);
+            'calendarId' => $calendarId,
+            'userRightsToEditMember' => $edit_member,
+            'userRightsToAddTask' => $add_task,
+            "userRightsToEditCal" => $edit_cal,
+            'admin' => User::find($agenda->admin_id),
+            'agenda' => $agenda,
+            'members' => $users]);
     }
 
     /**
@@ -196,5 +196,10 @@ class AgendaController extends Controller
         // suppresion du calendrier
 
         return redirect('/home');
+    }
+
+    public function addMember()
+    {
+        return view('handleMember');
     }
 }
