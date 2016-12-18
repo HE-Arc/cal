@@ -22,16 +22,30 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->delete();
         $this->command->info('Databases cleaned !');
 
+        $user1 = User::create(array(
+            'alias'         =>  'user1',
+            'email'         =>  'user1@user.com',
+            'password'      =>  'user1',
+        ));
+
+        $user2 = User::create(array(
+            'alias'         =>  'user2',
+            'email'         =>  'user2@user.com',
+            'password'      =>  'user2',
+        ));
+        $this->command->info('Users seeded !');
 
         // seed our calendars table ------------------------
         $calendar1 = Agenda::create(array(
             'title'                 =>  'Calendar1',
+            'admin_id'              =>  $user1->id,
             'priority_low_color'    =>  '#FFFFFF',
             'priority_medium_color' =>  '#0000FF',
             'priority_high_color'   =>  '#FF0000',
         ));
         $calendar2 = Agenda::create(array(
             'title'                 =>  'Calendar2',
+            'admin_id'              =>  $user2->id,
             'priority_low_color'    =>  '#0F0F0F',
             'priority_medium_color' =>  '#00FFFF',
             'priority_high_color'   =>  '#FFFF00',
@@ -82,18 +96,7 @@ class DatabaseSeeder extends Seeder
             'password'      =>  '123456',
         ));
 
-        $user1 = User::create(array(
-            'alias'         =>  'user1',
-            'email'         =>  'user1@user.com',
-            'password'      =>  'user1',
-        ));
 
-        $user2 = User::create(array(
-            'alias'         =>  'user2',
-            'email'         =>  'user2@user.com',
-            'password'      =>  'user2',
-        ));
-        $this->command->info('Users seeded !');
 
         // link user to calendar
         $user1->agendas()->attach($calendar1->id, [

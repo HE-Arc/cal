@@ -23,6 +23,10 @@ class CreateForeignKeys extends Migration
             $table->integer('calendar_id')->unsigned();
             $table->foreign('calendar_id')->references('id')->on('calendar')->onDelete('cascade');
         });
+        Schema::table('calendar', function ($table) {
+            $table->integer('admin_id')->unsigned();
+            $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
     /**
