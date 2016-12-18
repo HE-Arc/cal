@@ -198,7 +198,7 @@ class AgendaController extends Controller
         return redirect('/home');
     }
 
-    public function addMember($calendarId, $userEmail, $add_task, $edit_task, $delete_task, $edit_member, $edit_calendar, $delete_calendar)
+    public function editMember(Request $request, $calendarId)
     {
         if($user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail))
             DB::table('agenda_user')->insert(
@@ -220,8 +220,12 @@ class AgendaController extends Controller
         return view('handleMember');
     }
 
-    public function indexMember()
+    public function indexMember(Request $request)
     {
-        return redirect('/handleMember');
+        $url = $request->url();
+        preg_match_all('/\d+/', $url, $matches);
+        $id = $matches[0][0];
+        $agenda = Agenda::find($id);
+        return view('handleMember',['agenda'=>$agenda]);
     }
 }

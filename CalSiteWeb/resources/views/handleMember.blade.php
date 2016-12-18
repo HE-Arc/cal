@@ -8,7 +8,7 @@
                     <div class="panel-heading">
                     </div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{url('calendar/members')}}">
+                        <form class="form-horizontal" role="form" method="POST" action="{{url('calendar/'.$agenda->id.'/members/')}}">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
