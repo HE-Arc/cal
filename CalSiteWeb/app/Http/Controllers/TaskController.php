@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Agenda;
+use App\User;
+use Auth;
 use DateTime;
 
 class TaskController extends Controller
@@ -85,12 +88,23 @@ class TaskController extends Controller
     {
         $task = Task::where('id', $id)->first();
 
+        $agenda = Agenda::where('id', $calendarId)->first();
 
+        $users = $agenda->users()->get();
+        //correlate currentUser with users from agenda to get necessary information to determine rights of user on calendar
+        $currentUser = Auth::user();
+        foreach ($users as $user)
+            if ($user->id == $currentUser->id)
+                $currentUser = $user;
+
+        $canDelete = $currentUser->pivot->delete_task;
 
         $dateTimeStart = date_create($task->time_start);
         $dateTimeEnd = date_create($task->time_end);
 
-        return view('createTask', ['calendarId' => $calendarId,'mode' => 'edit', 'task' => $task, 'dateTimeStart' => $dateTimeStart,'dateTimeEnd' => $dateTimeEnd]);
+
+
+        return view('createTask', ['calendarId' => $calendarId,'mode' => 'edit', 'task' => $task, 'dateTimeStart' => $dateTimeStart,'dateTimeEnd' => $dateTimeEnd, 'canDelete' => $canDelete]);
     }
 
     /**

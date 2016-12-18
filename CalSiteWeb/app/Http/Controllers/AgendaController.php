@@ -145,7 +145,17 @@ class AgendaController extends Controller
     {
         $user = Auth::user();
         $agenda = Agenda::where('id', $calendarId)->first();
-        return view('handleCalendar', ['user' => $user, 'mode' => 'edit', 'agenda' => $agenda]);
+        $users = $agenda->users()->get();
+
+        //correlate currentUser with users from agenda to get necessary information to determine rights of user on calendar
+        $currentUser = Auth::user();
+        foreach ($users as $user)
+            if ($user->id == $currentUser->id)
+                $currentUser = $user;
+
+        $canDelete = $currentUser->pivot->delete_calendar;
+
+        return view('handleCalendar', ['user' => $user, 'mode' => 'edit', 'agenda' => $agenda, 'canDelete' => $canDelete]);
     }
 
     /**
