@@ -198,8 +198,13 @@ class AgendaController extends Controller
         return redirect('/home');
     }
 
-    public function addMember()
+    public function indexMember()
     {
         return view('handleMember');
+    }
+
+    public function addMember()
+    {
+        return redirect('/home');
     }
 }
