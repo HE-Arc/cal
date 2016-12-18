@@ -31,6 +31,7 @@ echo $MYSQL_PASSWORD <-- if you need to check your password
 setup mysql db
 	drop schema cal_production (if it already exists)
 	create schema cal_production
+	php artisan migrate:refresh --seed
 setup dependencies
 	goto www/cal/CalSiteWeb/
 	cp .env.example .env
