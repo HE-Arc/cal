@@ -200,32 +200,42 @@ class AgendaController extends Controller
 
     public function editMember(Request $request, $calendarId)
     {
-        if($user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail))
-            DB::table('agenda_user')->insert(
-                ['add_task' => $add_task,
-                'edit_task' => $edit_task,
-                'delete_task' => $delete_task,
-                'edit_member' => $edit_member,
-                'edit_calendar' => $edit_calendar,
-                'delete_calendar' => $delete_calendar,
-                'user_id' => $user->id,
-                'agenda_id' => $calendarId]
-            );
-        return view('handleMember');
+        $id = $this->getCalId($request);
+        $agenda = Agenda::find($id);
+
+        return view('handleMember',['agenda'=>$agenda]);
     }
-    public function deleteMember($calendarId, $userEmail)
+    private function deleteMember($agenda, $user)
     {
         $user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail);
         DB::table('agenda_user')->where(['user_id', $user->id],['agenda_id', $calendarId])->delete();
         return view('handleMember');
     }
-
+    private function addMember($agenda, $user){
+        if($user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail))
+            DB::table('agenda_user')->insert(
+                ['add_task' => $add_task,
+                    'edit_task' => $edit_task,
+                    'delete_task' => $delete_task,
+                    'edit_member' => $edit_member,
+                    'edit_calendar' => $edit_calendar,
+                    'delete_calendar' => $delete_calendar,
+                    'user_id' => $user->id,
+                    'agenda_id' => $calendarId]
+            );
+    }
     public function indexMember(Request $request)
     {
-        $url = $request->url();
-        preg_match_all('/\d+/', $url, $matches);
-        $id = $matches[0][0];
+        $id = $this->getCalId($request);
         $agenda = Agenda::find($id);
         return view('handleMember',['agenda'=>$agenda]);
     }
+
+    private function getCalId($request)
+    {
+        $url = $request->url();
+        preg_match_all('/\d+/', $url, $matches);
+        return $matches[0][0];
+    }
+
 }
