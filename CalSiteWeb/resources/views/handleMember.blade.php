@@ -25,7 +25,32 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <label for="permission" class="col-md-4 control-label">Permissions</label>
+
+                                <div class="col-md-6">
+                                    <table name="permission">
+                                        <tr>
+                                            <td>Add task</td>
+                                            <td>Edit task</td>
+                                            <td>Delete task</td>
+                                            <td>Edit members</td>
+                                            <td>Edit calendar</td>
+                                            <td>Delete calendar</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="checkbox" name="add_task" ></td>
+                                            <td><input type="checkbox" name="edit_task"></td>
+                                            <td><input type="checkbox" name="delete_task"></td>
+                                            <td><input type="checkbox" name="edit_member"></td>
+                                            <td><input type="checkbox" name="edit_calendar"></td>
+                                            <td><input type="checkbox" name="delete_calendar"></td>
+                                            <td><button type="submit" class="btn">Save</button></td>
+                                            <td><button type="submit" class="btn">Remove</button></td>
+
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
 
@@ -37,6 +62,37 @@
                                 </div>
                             </div>
                         </form>
+                        <table>
+                            <tr>
+                                <td>Email</td>
+                                <td>Add task</td>
+                                <td>Edit task</td>
+                                <td>Delete task</td>
+                                <td>Edit members</td>
+                                <td>Edit calendar</td>
+                                <td>Delete calendar</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            @foreach($users as $user)
+
+                                <form class="form-horizontal" role="form" method="POST" action="{{url('calendar/'.$agenda->id.'/members/')}}">
+                                <tr>
+                                    <input type="hidden" name="user_id" value="$user->id"/>
+                                    <td>{{ $user->email }}</td>
+                                    <td><input type="checkbox" name="add_task" {{ $user->pivot->add_task? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="edit_task" {{ $user->pivot->edit_task? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="delete_task" {{ $user->pivot->delete_task? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="edit_member" {{ $user->pivot->edit_member? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="edit_calendar" {{ $user->pivot->edit_calendar? 'checked' : '' }}></td>
+                                    <td><input type="checkbox" name="delete_calendar" {{ $user->pivot->delete_calendar? 'checked' : '' }}></td>
+                                    <td><button type="submit" class="btn">Save</button></td>
+                                    <td><button type="submit" class="btn">Remove</button></td>
+
+                                </tr>
+                                </form>
+                            @endforeach
+                        </table>
                     </div>
                 </div>
             </div>

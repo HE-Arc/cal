@@ -211,7 +211,7 @@ class AgendaController extends Controller
     public function editMember(Request $request, $calendarId)
     {
         $id = $this->getCalId($request);
-        $agenda = Agenda::find($id);
+        $agenda = Agenda::find($calendarId);
 
         return view('handleMember',['agenda'=>$agenda]);
     }
@@ -238,7 +238,8 @@ class AgendaController extends Controller
     {
         $id = $this->getCalId($request);
         $agenda = Agenda::find($id);
-        return view('handleMember',['agenda'=>$agenda]);
+        $users = $agenda->users()->get();
+        return view('handleMember',['agenda'=>$agenda, 'users' => $users]);
     }
 
     private function getCalId($request)
