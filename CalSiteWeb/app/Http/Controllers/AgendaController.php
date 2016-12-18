@@ -46,7 +46,6 @@ class AgendaController extends Controller
         // create the validation rules ------------------------
         $rules = array(
             'title' => 'required|max:255|min:5',
-            'admin_id' => 'required',
             'priority_high_color' => 'required',
             'priority_medium_color' => 'required',
             'priority_low_color' => 'required',

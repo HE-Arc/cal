@@ -90,6 +90,11 @@
                                     Edit
                                 @endif
                             </button>
+                            @if($mode == 'edit')
+                                {{ Form::close() }}
+                                {{  Form::open(['route' => ['calendar.destroy', $agenda->id], 'method' => 'delete', 'style' =>"display:inline-block"]) }}
+                                <button type="submit" class="btn btn-primary"> Delete </button>
+                            @endif
                         </div>
                     </div>
                     {{Form::close()}}

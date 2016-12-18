@@ -154,6 +154,11 @@
                                         Edit
                                     @endif
                                 </button>
+                                @if($mode == 'edit')
+                                    {{ Form::close() }}
+                                    {{ Form::open(array('route' => array('tasks.destroy', 'calendarId' => $calendarId, 'id' =>$task->id), 'method' => 'delete','style' =>"display:inline-block")) }}
+                                    <button type="submit" class="btn btn-primary"> Delete </button>
+                                @endif
                             </div>
                         </div>
                         {{Form::close()}}

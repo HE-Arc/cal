@@ -41,7 +41,15 @@ class Agenda extends Model
     public static function deleteAgendaWithRights($user, $agenda)
     {
         if ($user->pivot->delete_calendar)
+        {
+            // delete the tasks of the calendar
+            $tasks = $agenda->tasks()->get();
+            foreach ($tasks as $task) {
+                $task->delete();
+            }
+
             $agenda->delete();
+        }
         else
             DB::table('agenda_user')->where('user_id', '=', $user->id)->delete();
 
