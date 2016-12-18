@@ -6,6 +6,9 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <h1>
+                        Modify members of {{$agenda->title}} by {{$agenda->admin_id}}
+                        </h1>
                     </div>
                     <div class="panel-body">
                         <label class="col-md-12 control-label">
@@ -62,7 +65,8 @@
 
                             <div class="row form-group">
                                 <div class="col-md-offset-5">
-                                    <button type="submit" value="add" class="btn btn-primary">
+                                    <input type="hidden" name="update" value="add">
+                                    <button type="submit" class="btn btn-primary">
                                         Register Member
                                     </button>
                                 </div>
@@ -84,7 +88,8 @@
                             @foreach($users as $user)
                                 <div class="col-md-12 col-md-offset-1">
                                     <form class="form-horizontal" role="form" method="POST" action="{{url('calendar/'.$agenda->id.'/members/')}}">
-                                    <input type="hidden" name="user_id" value="{{$user->id}}"/>
+                                        {{ csrf_field() }}
+                                    <input type="hidden" name="email" value="{{$user->email}}"/>
                                         <div class="col-md-2">{{ $user->email }}</div>
                                         <div class="col-md-1"><input type="checkbox" name="add_task" {{ $user->pivot->add_task? 'checked' : '' }}></div>
                                         <div class="col-md-1"><input type="checkbox" name="edit_task" {{ $user->pivot->edit_task? 'checked' : '' }}></div>
@@ -92,8 +97,18 @@
                                         <div class="col-md-1"><input type="checkbox" name="edit_member" {{ $user->pivot->edit_member? 'checked' : '' }}></div>
                                         <div class="col-md-1"><input type="checkbox" name="edit_calendar" {{ $user->pivot->edit_calendar? 'checked' : '' }}></div>
                                         <div class="col-md-1"><input type="checkbox" name="delete_calendar" {{ $user->pivot->delete_calendar? 'checked' : '' }}></div>
-                                        <div class="col-md-1"><button type="submit" class="btn btn-default">Save</button></div>
-                                        <div class="col-md-1"><button type="submit" class="btn btn-danger">Remove</button></div>
+                                        <div class="col-md-1"><button type="submit" class="btn btn-default">
+                                                <input type="hidden" name="update" value="update"/>
+                                                Save</button>
+                                        </div>
+
+                                    </form>
+                                    <form class="form-horizontal" role="form" method="POST" action="{{url('calendar/'.$agenda->id.'/members/')}}">
+                                        {{ csrf_field() }}
+                                        <button type="submit" class="btn btn-danger">
+                                            <input type="hidden" name="email" value="{{$user->email}}"/>
+                                            <input type="hidden" name="update" value="delete"/>
+                                            Remove</button>
                                     </form>
                                 </div>
                             @endforeach

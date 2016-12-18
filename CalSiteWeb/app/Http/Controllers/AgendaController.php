@@ -211,28 +211,43 @@ class AgendaController extends Controller
     public function editMember(Request $request, $calendarId)
     {
         $id = $this->getCalId($request);
+        $editiontype = $request->request->get("update");
         $agenda = Agenda::find($calendarId);
-
-        return view('handleMember',['agenda'=>$agenda]);
+        $user = User::where('email', $request->request->get('email'))->first();
+        if($editiontype == 'add' && $user != null){
+            $this->addMember($agenda,$user, $request->request);}
+        if ($editiontype == 'delete')
+            $this->deleteMember($agenda,$user);
+        if ($editiontype == 'update')
+            $this->updateMember($agenda,$user,$request);
+        $users = $agenda->users()->get();
+        return view('handleMember',['agenda'=>$agenda, 'users' => $users]);
     }
     private function deleteMember($agenda, $user)
     {
-        $user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail);
-        DB::table('agenda_user')->where(['user_id', $user->id],['agenda_id', $calendarId])->delete();
-        return view('handleMember');
+        DB::table('agenda_user')->where(['user_id' => $user->id, 'agenda_id' => $agenda->id])->delete();
     }
-    private function addMember($agenda, $user){
-        if($user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail))
-            DB::table('agenda_user')->insert(
-                ['add_task' => $add_task,
-                    'edit_task' => $edit_task,
-                    'delete_task' => $delete_task,
-                    'edit_member' => $edit_member,
-                    'edit_calendar' => $edit_calendar,
-                    'delete_calendar' => $delete_calendar,
-                    'user_id' => $user->id,
-                    'agenda_id' => $calendarId]
-            );
+    private function addMember($agenda, $user, $request){
+        DB::table('agenda_user')->insert(
+            ['add_task' => $request->get('add_task')!= null,
+                'edit_task' =>$request->get('edit_task')!= null,
+                'delete_task' => $request->get('delete_task')!= null,
+                'edit_member' => $request->get('edit_member')!= null,
+                'edit_calendar' => $request->get('edit_calendar')!= null,
+                'delete_calendar' => $request->get('delete_calendar')!= null,
+                'user_id' => $user->id,
+                'agenda_id' => $agenda->id]
+        );
+    }
+
+    private function updateMember($agenda, $user, $request){
+        DB::table('agenda_user')->where(['user_id' => $user->id,'agenda_id' => $agenda->id])->update(
+            ['add_task' => $request->get('add_task')!= null,
+            'edit_task' =>$request->get('edit_task')!= null,
+            'delete_task' => $request->get('delete_task')!= null,
+            'edit_member' => $request->get('edit_member')!= null,
+            'edit_calendar' => $request->get('edit_calendar')!= null,
+            'delete_calendar' => $request->get('delete_calendar')!= null]);
     }
     public function indexMember(Request $request)
     {
