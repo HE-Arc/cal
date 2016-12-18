@@ -220,4 +220,9 @@ class AgendaController extends Controller
         DB::table('agenda_user')->where(['user_id', $user->id],['agenda_id', $calendarId])->delete();
         return view('handleMember');
     }
+
+    public function indexMember()
+    {
+        return redirect('/handleMember');
+    }
 }
