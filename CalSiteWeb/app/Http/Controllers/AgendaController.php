@@ -8,6 +8,7 @@ use Auth;
 use App\Agenda;
 use App\Task;
 use Calendar;
+use Illuminate\Support\Facades\DB;
 
 class AgendaController extends Controller
 {
@@ -198,13 +199,24 @@ class AgendaController extends Controller
         return redirect('/home');
     }
 
-    public function indexMember()
+    public function addMember($calendarId, $userEmail, $add_task, $edit_task, $delete_task, $edit_member, $edit_calendar, $delete_calendar)
     {
+        if($user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail))
+            DB::table('agenda_user')->insert(
+                ['add_task' => $add_task,
+                'edit_task' => $edit_task,
+                'delete_task' => $delete_task,
+                'edit_member' => $edit_member,
+                'edit_calendar' => $edit_calendar,
+                'delete_calendar' => $delete_calendar,
+                'user_id' => $user->id,
+                'agenda_id' => $calendarId]
+            );
         return view('handleMember');
     }
 
-    public function addMember()
+    public function indexMember()
     {
-        return redirect('/home');
+        return redirect('/handleMember');
     }
 }
