@@ -214,4 +214,10 @@ class AgendaController extends Controller
             );
         return view('handleMember');
     }
+    public function deleteMember($calendarId, $userEmail)
+    {
+        $user = DB::table('users')->select(DB::raw('*'))->where('email', $userEmail);
+        DB::table('agenda_user')->where(['user_id', $user->id],['agenda_id', $calendarId])->delete();
+        return view('handleMember');
+    }
 }
