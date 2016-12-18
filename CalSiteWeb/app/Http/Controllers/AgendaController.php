@@ -45,6 +45,7 @@ class AgendaController extends Controller
         // create the validation rules ------------------------
         $rules = array(
             'title' => 'required|max:255|min:5',
+            'admin_id' => 'required',
             'priority_high_color' => 'required',
             'priority_medium_color' => 'required',
             'priority_low_color' => 'required',
@@ -55,6 +56,7 @@ class AgendaController extends Controller
         //Create the agenda
         $agenda = new Agenda;
         $agenda->title = $request->title;
+        $agenda->admin_id = $user->id;
         $agenda->priority_high_color = $request->priority_high_color;
         $agenda->priority_medium_color = $request->priority_medium_color;
         $agenda->priority_low_color = $request->priority_low_color;
@@ -88,11 +90,13 @@ class AgendaController extends Controller
         $tasks = $agenda->tasks()->get();
         $users = $agenda->users()->get();
 
+
         //correlate currentUser with users from agenda to get necessary information to determine rights of user on calendar
         $currentUser = Auth::user();
         foreach ($users as $user)
             if ($user->id == $currentUser->id)
                 $currentUser = $user;
+
 
         // set aside user rights for creation of tasks and edition of calendar
         $add_task = $currentUser->pivot->add_task;
@@ -120,7 +124,15 @@ class AgendaController extends Controller
         $calendar->setOptions([
             'timeFormat' => 'H:mm' // uppercase H for 24-hour clock
         ]);
-        return view('calendar', ['calendar' => $calendar, 'calendarId' => $calendarId,'userRightsToEditMember' => $edit_member ,'userRightsToAddTask' => $add_task, "userRightsToEditCal" => $edit_cal]);
+
+        return view('calendar', ['calendar' => $calendar,
+                                'calendarId' => $calendarId,
+                                'userRightsToEditMember' => $edit_member ,
+                                'userRightsToAddTask' => $add_task,
+                                "userRightsToEditCal" => $edit_cal,
+                                'admin' => User::find($agenda->admin_id),
+                                'agenda' => $agenda,
+                                'members' => $users]);
     }
 
     /**

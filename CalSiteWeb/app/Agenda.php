@@ -13,6 +13,7 @@ class Agenda extends Model
     // define which attributes are mass assignable (for security)
     protected $fillable = [
         'title',
+        'admin_id',
         'priority_low_color',
         'priority_medium_color',
         'priority_high_color',
@@ -39,7 +40,6 @@ class Agenda extends Model
     // redefining delete function for rights reserved user
     public static function deleteAgendaWithRights($user, $agenda)
     {
-//        dd($user);
         if ($user->pivot->delete_calendar)
             $agenda->delete();
         else
