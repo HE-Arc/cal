@@ -3,8 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10">
             <div class="panel panel-warning">
+                <div class="col-md-8"><h2>{{$agenda->title}} by {{$admin->alias}}</h2></div>
                 <div class="panel-body">
                     <div class="pan" style="display: flex; justify-content: space-between;">
                         @if ($userRightsToAddTask)
@@ -20,7 +21,17 @@
                 </div>
                 <!-- Crée un div automatiquement qui contient le calendrier (Proviens de l'helper)-->
                 {!! $calendar->calendar() !!}
+
             </div>
+        </div>
+        <div class="panel panel-info" style="display: flex; flex-direction: column; align-self:center;justify-self: center;">
+            <div class="panel-heading">Members</div>
+            <!-- List group -->
+            <ul class="list-group">
+                @foreach ($members as $user)
+                    <li class="list-group-item">{{$user->alias}}</li>
+                @endforeach
+            </ul>
         </div>
     </div>
 </div>
