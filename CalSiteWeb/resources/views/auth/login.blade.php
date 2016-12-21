@@ -60,6 +60,7 @@
                             </div>
                         </div>
                     </form>
+                    <p>Connection: user1@user.com:user1</p>
                 </div>
             </div>
         </div>

@@ -7,15 +7,16 @@
             <div class="panel panel-warning">
                 <div class="col-md-8"><h2>{{$agenda->title}} by {{$admin->alias}}</h2></div>
                 <div class="panel-body">
-                    <div class="pan" style="display: flex; justify-content: space-between;">
+                    <div class="btn-group" role="group" arial-label="Edition actions"
+                        style="display:flex; justify-content: space-between">
                         @if ($userRightsToAddTask)
-                        <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}"><button>create Task</button></a>
+                        <a href="{{ route('tasks.create', ['calendarId' => $calendarId]) }}" class="btn btn-primary">create Task</a>
                         @endif
                         @if($userRightsToEditMember)
-                        <a href="{{ url('calendar/'.$calendarId.'/members')}}"><button>Edit Member</button></a>
+                        <a href="{{ url('calendar/'.$calendarId.'/members')}}" class="btn btn-default">Edit Member</a>
                         @endif
                         @if ($userRightsToEditCal)
-                        <a href="{{ route('calendar.edit' , ['calendarId' => $calendarId])}}"><button>edit Calendar</button></a>
+                        <a href="{{ route('calendar.edit' , ['calendarId' => $calendarId])}}" class="btn btn-default">edit Calendar</a>
                         @endif
                     </div>
                 </div>

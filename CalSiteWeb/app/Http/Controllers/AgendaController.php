@@ -8,7 +8,7 @@ use Auth;
 use App\Agenda;
 use App\Task;
 use Calendar;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class AgendaController extends Controller
 {
@@ -225,6 +225,7 @@ class AgendaController extends Controller
     }
     private function deleteMember($agenda, $user)
     {
+        // FIXME: pas jauli jauli.
         DB::table('agenda_user')->where(['user_id' => $user->id, 'agenda_id' => $agenda->id])->delete();
     }
     private function addMember($agenda, $user, $request){
@@ -249,19 +250,21 @@ class AgendaController extends Controller
             'edit_calendar' => $request->get('edit_calendar')!= null,
             'delete_calendar' => $request->get('delete_calendar')!= null]);
     }
-    public function indexMember(Request $request)
+    public function indexMember(Request $request, $id)
     {
-        $id = $this->getCalId($request);
-        $agenda = Agenda::find($id);
+        // WTF!
+        //$id = $this->getCalId($request);
+        $agenda = Agenda::findOrFail($id);
         $users = $agenda->users()->get();
         return view('handleMember',['agenda'=>$agenda, 'users' => $users]);
     }
 
+    /*
     private function getCalId($request)
     {
         $url = $request->url();
         preg_match_all('/\d+/', $url, $matches);
         return $matches[0][0];
     }
-
+    */
 }

@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use DB;
 
 class Agenda extends Model
 {
@@ -51,6 +51,7 @@ class Agenda extends Model
             $agenda->delete();
         }
         else
+            // FIXME: DB c'est mal.
             DB::table('agenda_user')->where('user_id', '=', $user->id)->delete();
 
     }

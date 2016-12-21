@@ -30,7 +30,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
 
-        $agendas = $user->agendas()->get();
+        $agendas = $user->agendas()->with('tasks')->get();
 
         $listAgendas = [];
 
@@ -39,8 +39,7 @@ class HomeController extends Controller
         foreach ($agendas as $agenda) {
             $listAgendas[$agenda->id] = $agenda->title;
 
-            $tasks = $agenda->tasks()->get();
-            foreach ($tasks as $task) {
+            foreach ($agenda->tasks()->get() as $task) {
                 $event = Calendar::event(
                     $task->title,           //title
                     false,                  //is full day event ?
